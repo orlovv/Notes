@@ -34,7 +34,7 @@ class NotesTableViewController: UITableViewController {
     
     setupNavigationBar()
     
-    manager.append(Note(title: "First note", body: "First body", createDate: Date()))
+    manager.append(Note(title: "First note", body: NSAttributedString(string: "First body"), createDate: Date()))
   }
   
   //MARK: - Actions
@@ -80,9 +80,9 @@ class NotesTableViewController: UITableViewController {
       note = manager.note(at: indexPath.row)
     }
       
-    cell.titleLabel.text      = note.title
-    cell.lastUpdateLabel.text = note.createDate.stringFromDate()
-    cell.bodyLabel.text       = note.body
+    cell.titleLabel.text          = note.title
+    cell.lastUpdateLabel.text     = note.createDate.stringFromDate()
+    cell.bodyLabel.attributedText = note.body
     cell.delegate = self
     
     return cell
@@ -113,7 +113,7 @@ extension NotesTableViewController: AddNoteViewControllerDelegate {
     if note.title != "" {
       manager.append(note)
       tableView.reloadData()
-    } else if note.body != "" && note.title == "" {
+    } else if !(note.body?.isEqual(to: NSAttributedString(string: "")))! && note.title == "" {
       let alert = UIAlertController(title: "Ошибка", message: "Пустая заметка не может быть создана", preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
       present(alert, animated: true)

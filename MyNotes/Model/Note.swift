@@ -12,7 +12,7 @@ class Note {
   
   let id: Int
   let title: String
-  let body: String?
+  let body: NSAttributedString?
   let createDate: Date
   var isLocked: Bool
   
@@ -24,7 +24,7 @@ class Note {
     return dateFormatter.string(from: now)
   }
     
-  init(title: String, body: String?, createDate: Date) {
+  init(title: String, body: NSAttributedString?, createDate: Date) {
     self.id = Int(arc4random_uniform(UInt32.max))
     self.title = title
     self.body = body

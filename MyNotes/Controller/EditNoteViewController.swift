@@ -36,18 +36,24 @@ class EditNoteViewController: UIViewController {
     showNote()
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    editNote()
+  }
+  
   //MARK: - Helpers
   private func showNote() {
     guard let title = note?.title else { return }
     titleTextField.text = title
     
     if let body = note?.body {
-      bodyTextView.text = body
+      bodyTextView.attributedText = body
     }
   }
   
   private func editNote() {
-    let body = bodyTextView.text
+    let body = bodyTextView.attributedText
     let title = titleTextField.text
     delegate?.editNoteViewController(self, didEditNote: Note(title: title!, body: body, createDate: Date()), at: indexPath!)
   }
@@ -62,12 +68,24 @@ class EditNoteViewController: UIViewController {
 }
 
 extension EditNoteViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    picker.dismiss(animated: true)
+  }
+  
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
       let attachment = NSTextAttachment()
-      attachment.image = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .up)
+      attachment.image = image
+      
+      let oldWidth = attachment.image?.size.width
+      let scaleFactor = oldWidth! / (bodyTextView.frame.width - 10)
+      attachment.image = UIImage(cgImage: (attachment.image?.cgImage)!, scale: scaleFactor, orientation: .up)
+      let attiributedString = NSAttributedString(attachment: attachment)
+      let temp = NSMutableAttributedString(attributedString: bodyTextView.attributedText)
+      temp.append(attiributedString)
+      bodyTextView.attributedText = temp
       
     }
-    
+    picker.dismiss(animated: true)
   }
 }
