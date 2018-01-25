@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6E31C16CB419CBE7FF782000 /* Pods_MyNotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7A48C727FFD8838EF0B32A /* Pods_MyNotes.framework */; };
+		7C06E01C2019E8DE0014B163 /* MyNotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C06E01B2019E8DD0014B163 /* MyNotesTests.swift */; };
 		7C2B54DC1F85EE38008BBBE5 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2B54DB1F85EE38008BBBE5 /* CloudKit.framework */; };
 		7C2B54DE1F85EE60008BBBE5 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2B54DD1F85EE60008BBBE5 /* Intents.framework */; };
 		7C2B55001F8D1D28008BBBE5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C2B54FF1F8D1CC2008BBBE5 /* Main.storyboard */; };
@@ -28,8 +29,21 @@
 		7CBE87DB200F88DD0061F4B3 /* Locker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE87DA200F88DD0061F4B3 /* Locker.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7C06E01E2019E8DE0014B163 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7C8B14551F766BEF00BB3979 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C8B145C1F766BEF00BB3979;
+			remoteInfo = MyNotes;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		6F0B5D57DDBE5A06B67BCB29 /* Pods-MyNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNotes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyNotes/Pods-MyNotes.debug.xcconfig"; sourceTree = "<group>"; };
+		7C06E0192019E8DD0014B163 /* MyNotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyNotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C06E01B2019E8DD0014B163 /* MyNotesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotesTests.swift; sourceTree = "<group>"; };
+		7C06E01D2019E8DE0014B163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C2B54DB1F85EE38008BBBE5 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		7C2B54DD1F85EE60008BBBE5 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		7C2B54FF1F8D1CC2008BBBE5 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -55,6 +69,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7C06E0162019E8DD0014B163 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7C8B145A1F766BEF00BB3979 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -75,6 +96,15 @@
 				EAD93CE06A820166B04E4E39 /* Pods-MyNotes.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		7C06E01A2019E8DD0014B163 /* MyNotesTests */ = {
+			isa = PBXGroup;
+			children = (
+				7C06E01B2019E8DD0014B163 /* MyNotesTests.swift */,
+				7C06E01D2019E8DE0014B163 /* Info.plist */,
+			);
+			path = MyNotesTests;
 			sourceTree = "<group>";
 		};
 		7C2899821F7E557C0028F250 /* Controller */ = {
@@ -123,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				7C8B145F1F766BEF00BB3979 /* MyNotes */,
+				7C06E01A2019E8DD0014B163 /* MyNotesTests */,
 				7C8B145E1F766BEF00BB3979 /* Products */,
 				76189631E009A1AE3AC557A3 /* Pods */,
 				869D4002D07C274BF82F1AAD /* Frameworks */,
@@ -133,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				7C8B145D1F766BEF00BB3979 /* MyNotes.app */,
+				7C06E0192019E8DD0014B163 /* MyNotesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,6 +196,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7C06E0182019E8DD0014B163 /* MyNotesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7C06E0202019E8DE0014B163 /* Build configuration list for PBXNativeTarget "MyNotesTests" */;
+			buildPhases = (
+				7C06E0152019E8DD0014B163 /* Sources */,
+				7C06E0162019E8DD0014B163 /* Frameworks */,
+				7C06E0172019E8DD0014B163 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7C06E01F2019E8DE0014B163 /* PBXTargetDependency */,
+			);
+			name = MyNotesTests;
+			productName = MyNotesTests;
+			productReference = 7C06E0192019E8DD0014B163 /* MyNotesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7C8B145C1F766BEF00BB3979 /* MyNotes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7C8B146F1F766BEF00BB3979 /* Build configuration list for PBXNativeTarget "MyNotes" */;
@@ -190,10 +240,15 @@
 		7C8B14551F766BEF00BB3979 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Vladimir Orlov";
 				TargetAttributes = {
+					7C06E0182019E8DD0014B163 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 7C8B145C1F766BEF00BB3979;
+					};
 					7C8B145C1F766BEF00BB3979 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
@@ -214,11 +269,19 @@
 			projectRoot = "";
 			targets = (
 				7C8B145C1F766BEF00BB3979 /* MyNotes */,
+				7C06E0182019E8DD0014B163 /* MyNotesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7C06E0172019E8DD0014B163 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7C8B145B1F766BEF00BB3979 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -288,6 +351,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7C06E0152019E8DD0014B163 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C06E01C2019E8DE0014B163 /* MyNotesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7C8B14591F766BEF00BB3979 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -308,6 +379,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7C06E01F2019E8DE0014B163 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7C8B145C1F766BEF00BB3979 /* MyNotes */;
+			targetProxy = 7C06E01E2019E8DE0014B163 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		7C8B14691F766BEF00BB3979 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -320,6 +399,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7C06E0212019E8DE0014B163 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 39F8JVBPSH;
+				INFOPLIST_FILE = MyNotesTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.MyNotesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyNotes.app/MyNotes";
+			};
+			name = Debug;
+		};
+		7C06E0222019E8DE0014B163 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 39F8JVBPSH;
+				INFOPLIST_FILE = MyNotesTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.MyNotesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyNotes.app/MyNotes";
+			};
+			name = Release;
+		};
 		7C8B146D1F766BEF00BB3979 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -462,6 +575,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7C06E0202019E8DE0014B163 /* Build configuration list for PBXNativeTarget "MyNotesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C06E0212019E8DE0014B163 /* Debug */,
+				7C06E0222019E8DE0014B163 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7C8B14581F766BEF00BB3979 /* Build configuration list for PBXProject "MyNotes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
