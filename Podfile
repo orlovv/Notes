@@ -4,6 +4,6 @@
 target 'MyNotes' do
   use_frameworks!
 
-  pod 'SwipeCellKit', :git => 'https://github.com/SwipeCellKit/SwipeCellKit.git', :branch => 'develop'
+  pod 'SwipeCellKit'
   
 end

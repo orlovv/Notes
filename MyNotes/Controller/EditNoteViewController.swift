@@ -27,8 +27,6 @@ class EditNoteViewController: UIViewController {
     super.viewDidLoad()
     
     navigationItem.largeTitleDisplayMode = .never
-    navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addAttachment))
-    
     bodyTextView.layer.borderWidth = 1.0
     bodyTextView.layer.borderColor = UIColor.lightGray.cgColor
     bodyTextView.layer.cornerRadius = 10.0
@@ -58,34 +56,4 @@ class EditNoteViewController: UIViewController {
     delegate?.editNoteViewController(self, didEditNote: Note(title: title!, body: body, createDate: Date()), at: indexPath!)
   }
   
-  @objc private func addAttachment() {
-    let picker = UIImagePickerController()
-    picker.sourceType = .photoLibrary
-    picker.delegate = self
-    present(picker, animated: true)
-  }
-  
-}
-
-extension EditNoteViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-    picker.dismiss(animated: true)
-  }
-  
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-    if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-      let attachment = NSTextAttachment()
-      attachment.image = image
-      
-      let oldWidth = attachment.image?.size.width
-      let scaleFactor = oldWidth! / (bodyTextView.frame.width - 10)
-      attachment.image = UIImage(cgImage: (attachment.image?.cgImage)!, scale: scaleFactor, orientation: .up)
-      let attiributedString = NSAttributedString(attachment: attachment)
-      let temp = NSMutableAttributedString(attributedString: bodyTextView.attributedText)
-      temp.append(attiributedString)
-      bodyTextView.attributedText = temp
-      
-    }
-    picker.dismiss(animated: true)
-  }
 }

@@ -11,18 +11,23 @@ import Foundation
 class NoteManager {
   
   private(set) var notes: [Note] = []
-  let auth = BiometricAuth()
   
   public var count: Int {
     return notes.count
   }
   
-  static let shared = NoteManager()
+//  static let shared = NoteManager()
   
-  private init() {}
+  public init() {
+    notes = []
+  }
   
   public func note(at index: Int) -> Note {
     return notes[index]
+  }
+  
+  public func clear() {
+    notes.removeAll()
   }
   
   public func append(_ note: Note) {
@@ -36,11 +41,11 @@ class NoteManager {
   public func remove(at index: Int) {
     notes.remove(at: index)
   }
-  
+
   public func filter(text: String, scope: String = "All") -> [Note] {
     return notes.filter { $0.title.lowercased().contains(text.lowercased()) }
   }
-  
+
   public func sort() -> [Note] {
     return notes.sorted { $0.title < $1.title }
   }

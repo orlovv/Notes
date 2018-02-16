@@ -14,7 +14,9 @@ class NotesTableViewController: UITableViewController {
   var filteredNotes: [Note] = []
   var sortedNotes: [Note] = []
   var isSorted = false
-  let manager = NoteManager.shared
+  var index: IndexPath?
+  
+  let manager = NoteManager()
   let searchController = UISearchController(searchResultsController: nil)
   
   var isSearchBarEmpty: Bool {
@@ -42,14 +44,13 @@ class NotesTableViewController: UITableViewController {
     isSorted = !isSorted
     if isSorted {
       sortedNotes = manager.sort()
-      tableView.reloadData()
     }
+    tableView.reloadData()
   }
   
   // MARK: - Helpers
   func setupNavigationBar() {
     navigationController?.navigationBar.prefersLargeTitles = true
-    
     navigationItem.searchController = searchController
     searchController.searchBar.placeholder = "Поиск"
     searchController.searchBar.searchBarStyle = .minimal
@@ -64,6 +65,8 @@ class NotesTableViewController: UITableViewController {
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if isFiltering {
       return filteredNotes.count
+    } else if isSorted {
+      return sortedNotes.count
     }
     return manager.count
   }
@@ -80,9 +83,11 @@ class NotesTableViewController: UITableViewController {
       note = manager.note(at: indexPath.row)
     }
       
-    cell.titleLabel.text          = note.title
+    cell.titleLabel.text          = note.title == "" ? "[Нет заголовка]" : note.title
     cell.lastUpdateLabel.text     = note.createDate.stringFromDate()
-    cell.bodyLabel.attributedText = note.body
+    cell.bodyLabel.attributedText = (note.body?.containsAttachments(in: NSRange(location: 0, length: (note.body?.length)!)))!
+      ? NSAttributedString(string: "[Вложение]")
+      : note.body
     cell.delegate = self
     
     return cell
@@ -92,13 +97,40 @@ class NotesTableViewController: UITableViewController {
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
-    performSegue(withIdentifier: Segue.editNote, sender: indexPath)
+    if manager.note(at: indexPath.row).isLocked {
+      if let password = UserDefaults.standard.string(forKey: "password \(self.manager.note(at: indexPath.row).id)") {
+        let alert = UIAlertController(title: "Заметка заблокирована",
+                                      message: "Введите пароль, чтобы разблокировать заметку",
+                                      preferredStyle: .alert)
+        alert.addTextField(configurationHandler: { textField in
+          textField.keyboardType = .default
+        })
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+          if alert.textFields?.first?.text == password {
+            self.manager.unlock(at: indexPath.row)
+            self.performSegue(withIdentifier: Segue.editNote, sender: indexPath)
+          } else {
+            return
+          }
+        }))
+        present(alert, animated: true, completion: nil)
+      }
+    } else {
+      performSegue(withIdentifier: Segue.editNote, sender: indexPath)
+    }
   }
 
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let destination = segue.destination as? EditNoteViewController, segue.identifier == Segue.editNote {
-      destination.note = manager.notes[(sender as! IndexPath).row]
+      if isFiltering {
+        destination.note = filteredNotes[(sender as! IndexPath).row]
+      } else if isSorted {
+        destination.note = sortedNotes[(sender as! IndexPath).row]
+      } else {
+        destination.note = manager.notes[(sender as! IndexPath).row]
+      }
       destination.indexPath = sender as? IndexPath
       destination.delegate = self
     }
@@ -110,10 +142,13 @@ class NotesTableViewController: UITableViewController {
 
 extension NotesTableViewController: AddNoteViewControllerDelegate {
   func addNoteViewController(_ controller: AddNoteViewController, didAddNote note: Note) {
-    if note.title != "" {
+    if note.title != "" || !(note.body?.isEqual(to: NSAttributedString(string: "")))! {
       manager.append(note)
+      if isSorted {
+        sortedNotes = manager.sort()
+      }
       tableView.reloadData()
-    } else if !(note.body?.isEqual(to: NSAttributedString(string: "")))! && note.title == "" {
+    } else {
       let alert = UIAlertController(title: "Ошибка", message: "Пустая заметка не может быть создана", preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
       present(alert, animated: true)
@@ -135,19 +170,48 @@ extension NotesTableViewController: SwipeTableViewCellDelegate {
     guard orientation == .right else { return nil }
     
     let deleteAction = SwipeAction(style: .destructive, title: nil) { action, indexPath in
-      self.manager.remove(at: indexPath.row)
+      if self.isSorted {
+        self.sortedNotes.remove(at: indexPath.row)
+      } else if self.isFiltering {
+        self.filteredNotes.remove(at: indexPath.row)
+      } //else {
+        self.manager.remove(at: indexPath.row)
+      //}
+      self.tableView.deleteRows(at: [indexPath], with: .right)
+      self.tableView.reloadData()
     }
     deleteAction.image = UIImage(named: "garbage")
     
     let lockAction = SwipeAction(style: .default, title: nil) { action, indexPath in
-      let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-      alert.addAction(UIAlertAction(title: "Ввод пароля", style: .default, handler: { action in
-        let passwordAlert = UIAlertController(title: "Блокировка заметки", message: "Введите пароль для блокировки этой заметки", preferredStyle: .alert)
-        passwordAlert.addTextField(configurationHandler: { textField in
-          textField.returnKeyType = .done
-        })
-        
+      
+      let alert = UIAlertController(title: nil,
+                                    message: "Для блокировки этой заметки введите пароль",
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ввод пароля",
+                                    style: .default,
+                                    handler: { _ in
+                                      let passwordAlert = UIAlertController(title: "Блокировка заметки",
+                                                                            message: "Введите пароль для блокировки этой заметки",
+                                                                            preferredStyle: .alert)
+                                      
+                                      passwordAlert.addTextField(configurationHandler: { textField in
+                                        textField.returnKeyType = .done
+                                      })
+                                      passwordAlert.addAction(UIAlertAction(title: "Ok",
+                                                                            style: .default,
+                                                                            handler: { _ in
+                                                                              self.manager.lock(at: indexPath.row, password: passwordAlert.textFields?.first?.text)
+                                      }))
+                                      passwordAlert.addAction(UIAlertAction(title: "Отмена",
+                                                                            style: .cancel,
+                                                                            handler: nil))
+                                      self.present(passwordAlert, animated: true, completion: nil)
       }))
+      
+      alert.addAction(UIAlertAction(title: "Отмена", style: .default, handler: nil))
+      
+      self.present(alert, animated: true, completion: nil)
     }
     lockAction.image = manager.note(at: indexPath.row).isLocked ? UIImage(named: "unlocked") : UIImage(named: "locked")
     
@@ -158,7 +222,6 @@ extension NotesTableViewController: SwipeTableViewCellDelegate {
 
 extension NotesTableViewController: UISearchResultsUpdating, UISearchBarDelegate {
   func updateSearchResults(for searchController: UISearchController) {
-//    filterContentForSearchText(searchController.searchBar.text!)
     filteredNotes = manager.filter(text: searchController.searchBar.text!)
     tableView.reloadData()
   }

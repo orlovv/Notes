@@ -25,8 +25,6 @@
 		7CB02F9A1FFF8FBD00B5DE0D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CB02F991FFF8FBD00B5DE0D /* GoogleService-Info.plist */; };
 		7CBE87D5200F561F0061F4B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CBE87D4200F561F0061F4B3 /* Assets.xcassets */; };
 		7CBE87D7200F59FE0061F4B3 /* NoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE87D6200F59FE0061F4B3 /* NoteManager.swift */; };
-		7CBE87D9200F5C060061F4B3 /* BiometricAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE87D8200F5C060061F4B3 /* BiometricAuth.swift */; };
-		7CBE87DB200F88DD0061F4B3 /* Locker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE87DA200F88DD0061F4B3 /* Locker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,8 +60,6 @@
 		7CB02F991FFF8FBD00B5DE0D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7CBE87D4200F561F0061F4B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CBE87D6200F59FE0061F4B3 /* NoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteManager.swift; sourceTree = "<group>"; };
-		7CBE87D8200F5C060061F4B3 /* BiometricAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuth.swift; sourceTree = "<group>"; };
-		7CBE87DA200F88DD0061F4B3 /* Locker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locker.swift; sourceTree = "<group>"; };
 		EAD93CE06A820166B04E4E39 /* Pods-MyNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNotes.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyNotes/Pods-MyNotes.release.xcconfig"; sourceTree = "<group>"; };
 		EF7A48C727FFD8838EF0B32A /* Pods_MyNotes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyNotes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -122,8 +118,6 @@
 			children = (
 				7C8B147A1F7670E100BB3979 /* Note.swift */,
 				7CBE87D6200F59FE0061F4B3 /* NoteManager.swift */,
-				7CBE87D8200F5C060061F4B3 /* BiometricAuth.swift */,
-				7CBE87DA200F88DD0061F4B3 /* Locker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -364,14 +358,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C8B147D1F7674FB00BB3979 /* Constants.swift in Sources */,
-				7CBE87DB200F88DD0061F4B3 /* Locker.swift in Sources */,
 				7C8B14781F766D3C00BB3979 /* NoteCell.swift in Sources */,
 				7C8B14611F766BEF00BB3979 /* AppDelegate.swift in Sources */,
 				7C2C5BCD201910DF00D5C77F /* EditNoteViewController.swift in Sources */,
 				7C8B14731F766C9000BB3979 /* NotesTableViewController.swift in Sources */,
 				7C8B14811F767F2D00BB3979 /* AddNoteViewController.swift in Sources */,
 				7CBE87D7200F59FE0061F4B3 /* NoteManager.swift in Sources */,
-				7CBE87D9200F5C060061F4B3 /* BiometricAuth.swift in Sources */,
 				7C8B147B1F7670E100BB3979 /* Note.swift in Sources */,
 				7C52D8FC1F827F0D00007D3D /* Extensions.swift in Sources */,
 			);
